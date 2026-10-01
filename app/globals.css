@@ -1,0 +1,379 @@
+@import "tailwindcss";
+
+/* Warm, plain fintech: cream page, off-white surfaces, one orange for actions. */
+@theme {
+  --color-paper: #f4f1ea;
+  --color-card: #fffdfa;
+  --color-ink: #171917;
+  --color-mute: #73746d;
+  --color-line: #dedad2;
+  --color-accent: #ff6b35;
+  --color-accent-soft: #ffe6da;
+  --color-sage: #c6d2bf;
+  --color-sage-soft: #e6ece2;
+  --color-red: #b42318;
+
+  --font-sans: var(--font-manrope), system-ui, sans-serif;
+}
+
+@layer base {
+  html {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    scroll-behavior: smooth;
+  }
+  body {
+    font-family: var(--font-sans);
+    font-size: 16px;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1,
+  h2,
+  h3 {
+    font-weight: 800;
+    letter-spacing: -0.035em;
+    line-height: 1.04;
+    text-wrap: balance;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-ink);
+    outline-offset: 3px;
+    border-radius: 8px;
+  }
+  ::selection {
+    background: var(--color-accent);
+    color: var(--color-ink);
+  }
+}
+
+@layer components {
+  .wrap {
+    width: 100%;
+    max-width: 1200px;
+    margin-inline: auto;
+    padding-inline: 20px;
+  }
+  @media (min-width: 768px) {
+    .wrap {
+      padding-inline: 32px;
+    }
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    min-height: 48px;
+    padding-inline: 22px;
+    border-radius: 13px;
+    border: 1px solid transparent;
+    font-weight: 700;
+    font-size: 15.5px;
+    white-space: nowrap;
+    transition: background 0.18s, border-color 0.18s, transform 0.18s, opacity 0.18s;
+    cursor: pointer;
+  }
+  .btn:disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+  }
+  /* Primary: orange with ink text, which keeps the contrast above 4.5:1. */
+  .btn-primary {
+    background: var(--color-accent);
+    color: var(--color-ink);
+  }
+  .btn-primary:hover:not(:disabled) {
+    background: #ff7d4d;
+    transform: translateY(-1px);
+  }
+  .btn-ink {
+    background: var(--color-ink);
+    color: var(--color-card);
+  }
+  .btn-ink:hover:not(:disabled) {
+    background: #2b2e2b;
+  }
+  .btn-line {
+    background: var(--color-card);
+    border-color: var(--color-line);
+    color: var(--color-ink);
+  }
+  .btn-line:hover:not(:disabled) {
+    border-color: var(--color-ink);
+  }
+  .btn-sm {
+    min-height: 40px;
+    padding-inline: 16px;
+    font-size: 14.5px;
+    border-radius: 12px;
+  }
+
+  .panel {
+    background: var(--color-card);
+    border: 1px solid var(--color-line);
+    border-radius: 22px;
+  }
+  .tile {
+    background: var(--color-paper);
+    border: 1px solid var(--color-line);
+    border-radius: 14px;
+  }
+  .lift {
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .lift:hover {
+    transform: translateY(-3px);
+  }
+
+  .field {
+    width: 100%;
+    min-height: 48px;
+    padding-inline: 16px;
+    border-radius: 13px;
+    border: 1px solid var(--color-line);
+    background: var(--color-card);
+    color: var(--color-ink);
+    font-size: 16px;
+    transition: border-color 0.18s;
+  }
+  .field::placeholder {
+    color: #a3a49c;
+  }
+  .field:focus {
+    outline: none;
+    border-color: var(--color-ink);
+  }
+  textarea.field {
+    padding-block: 12px;
+    resize: vertical;
+  }
+  .label {
+    display: block;
+    font-size: 14.5px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .hint {
+    font-size: 13.5px;
+    color: var(--color-mute);
+    margin-top: 6px;
+  }
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    min-height: 26px;
+    padding-inline: 10px;
+    border-radius: 8px;
+    font-size: 12.5px;
+    font-weight: 700;
+  }
+  .num {
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
+  }
+  .note-ok {
+    color: #2f5d34;
+  }
+
+  /* A gift card in the catalogue: the brand's colour and mark. */
+  .gc {
+    position: relative;
+    container-type: inline-size;
+    aspect-ratio: 1.586;
+    border-radius: 14px;
+    padding: 8.5% 9%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: hidden;
+    isolation: isolate;
+    box-shadow:
+      0 0 0 1px rgb(23 25 23 / 0.08),
+      0 10px 20px -14px rgb(23 25 23 / 0.4);
+  }
+  .gc-ghost {
+    position: absolute;
+    z-index: -1;
+    right: -12%;
+    bottom: -30%;
+    width: 62%;
+    opacity: 0.06;
+  }
+  .gc-name {
+    font-weight: 800;
+    font-size: clamp(11px, 10.5cqw, 24px);
+    letter-spacing: -0.03em;
+    white-space: nowrap;
+  }
+  .gc-note {
+    font-size: clamp(9px, 4.6cqw, 12px);
+    opacity: 0.7;
+    margin-top: 1px;
+    white-space: nowrap;
+  }
+  .gc-kind {
+    font-size: clamp(7px, 3.9cqw, 10.5px);
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    opacity: 0.6;
+  }
+  .gc-amount {
+    font-size: clamp(11px, 8cqw, 19px);
+    font-weight: 800;
+  }
+
+  /* The hero's three cards: matte, stacked, soft shadows. Sizes follow the
+     stack's own width (cqw), so it scales as one picture. */
+  .stack {
+    position: relative;
+    container-type: inline-size;
+    width: min(100%, 560px);
+    aspect-ratio: 1.04;
+    margin-inline: auto;
+  }
+  .stack-card {
+    position: absolute;
+    aspect-ratio: 1.57;
+    border-radius: 6.4cqw;
+    padding: 6.2cqw 6.6cqw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* Matte relief: a lit top edge, a shaded bottom edge, a faint top-down wash. */
+    background-image: linear-gradient(172deg, rgb(255 255 255 / 0.16), rgb(255 255 255 / 0) 42%, rgb(0 0 0 / 0.04));
+    box-shadow:
+      0 0.35cqw 0 rgb(255 255 255 / 0.45) inset,
+      0 -0.35cqw 0.5cqw rgb(23 25 23 / 0.07) inset,
+      0 0.6cqw 1.2cqw rgb(23 25 23 / 0.07),
+      0 3.2cqw 5cqw -2cqw rgb(23 25 23 / 0.22);
+    transition: translate 0.25s cubic-bezier(0.2, 0.7, 0.2, 1), rotate 0.25s cubic-bezier(0.2, 0.7, 0.2, 1);
+    animation: stack-in 0.5s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .stack-back {
+    width: 72%;
+    left: 5%;
+    top: 6%;
+    rotate: -10deg;
+    background-color: var(--color-sage);
+  }
+  .stack-mid {
+    width: 70%;
+    left: 25%;
+    top: 24%;
+    rotate: 3deg;
+    background-color: var(--color-card);
+    animation-delay: 0.08s;
+  }
+  .stack-front {
+    width: 74%;
+    left: 13%;
+    top: 43%;
+    rotate: 4deg;
+    background-color: var(--color-accent);
+    background-image: linear-gradient(172deg, rgb(255 255 255 / 0.07), rgb(255 255 255 / 0) 45%, rgb(0 0 0 / 0.03));
+    box-shadow:
+      0 0.35cqw 0 rgb(255 255 255 / 0.3) inset,
+      0 -0.35cqw 0.5cqw rgb(150 50 10 / 0.18) inset,
+      0 0.6cqw 1.2cqw rgb(150 50 10 / 0.14),
+      0 4.4cqw 6cqw -2.4cqw rgb(150 50 10 / 0.5);
+    animation-delay: 0.16s;
+  }
+  .stack:hover .stack-back {
+    translate: -1.6cqw -1.8cqw;
+    rotate: -11.5deg;
+  }
+  .stack:hover .stack-mid {
+    translate: 1.6cqw -1cqw;
+  }
+  .stack:hover .stack-front {
+    translate: 0 1cqw;
+  }
+  .stack-brand {
+    display: flex;
+    align-items: center;
+    gap: 1.8cqw;
+    font-size: 5cqw;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1;
+    white-space: nowrap;
+  }
+  .stack-brand svg {
+    width: 7.4cqw;
+    height: 7.4cqw;
+    flex-shrink: 0;
+  }
+  .stack-name {
+    font-size: 8cqw;
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    line-height: 1;
+  }
+  .stack-sub {
+    font-size: 3.15cqw;
+    font-weight: 500;
+    margin-top: 1.6cqw;
+  }
+  /* The tile raised out of the front card, with its black tick. */
+  .emboss {
+    display: grid;
+    place-items: center;
+    width: 14.5cqw;
+    aspect-ratio: 1;
+    border-radius: 3.6cqw;
+    background: linear-gradient(160deg, #ff8556, #ff7442);
+    box-shadow:
+      0 0.3cqw 0 rgb(255 255 255 / 0.4) inset,
+      0 -0.3cqw 0.4cqw rgb(150 50 10 / 0.16) inset,
+      0.4cqw 1cqw 1.8cqw rgb(150 50 10 / 0.38),
+      -0.2cqw -0.3cqw 0.6cqw rgb(255 255 255 / 0.22);
+  }
+  .emboss svg {
+    width: 62%;
+  }
+
+  .fade-up {
+    animation: fade-up 0.25s ease-out both;
+  }
+}
+
+@keyframes stack-in {
+  from {
+    opacity: 0;
+    translate: 0 4cqw;
+  }
+}
+
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up,
+  .stack-card {
+    animation: none;
+  }
+  .stack:hover .stack-card {
+    translate: none;
+  }
+  .stack:hover .stack-back {
+    rotate: -10deg;
+  }
+  .btn,
+  .lift,
+  .stack-card {
+    transition: none;
+  }
+  .lift:hover,
+  .btn-primary:hover:not(:disabled) {
+    transform: none;
+  }
+  html {
+    scroll-behavior: auto;
+  }
+}
